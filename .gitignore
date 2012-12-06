@@ -15,3 +15,5 @@ dist
 ignore
 !.gitignore
 .*
+*.crx
+*.pem
