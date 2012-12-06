@@ -1,0 +1,19 @@
+{
+    "name": "sbt browser reloader",
+    "version": "1.3",
+    "manifest_version": 2,
+
+
+    "background": { "scripts": ["background.js"] },
+    "icons": { "32": "icons/iconOn.png"},
+    "description": "Automatically reload a page when sbt sources change",        
+    "browser_action": {
+        "default_title": "reload page if sbt sources change", 
+        "default_icon": "icons/iconOff.png"
+    },
+    "permissions": [
+        "http://*/*",
+        "https://*/*",
+        "tabs"
+    ]
+}

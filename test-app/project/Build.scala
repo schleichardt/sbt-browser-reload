@@ -34,6 +34,7 @@ object ApplicationBuild extends Build {
     val server = HttpServer.create(new InetSocketAddress(5555), 2)
     //call http://localhost:5555/poll
     //with only / for http://localhost:5555/ service reacts to favicon request
+    //run play with play ~run
     server.createContext("/poll", new BlockingServer())
     server.setExecutor(null)
     server.start()
