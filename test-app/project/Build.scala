@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
 
   class Watcher {
     val queue = new java.util.concurrent.LinkedBlockingQueue[String](1)
-    def blockUntilChange() { queue.take() }
+    def blockUntilChange() { queue.clear(); queue.take() }
     def fireChange() { queue.offer("new") }
   }
 
@@ -38,7 +38,6 @@ object ApplicationBuild extends Build {
     server.createContext("/poll", new BlockingServer())
     server.setExecutor(null)
     server.start()
-    println("started server")
     Watcher
   }
 
@@ -46,6 +45,9 @@ object ApplicationBuild extends Build {
       compile in Compile ~= { analysis =>
         watcher.fireChange()
         analysis
+      }, run in Compile ~= { r =>
+        watcher//start watcher
+        r
       }
     )
 }
