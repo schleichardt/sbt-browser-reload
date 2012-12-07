@@ -3,7 +3,6 @@ var tabs = [];
 
 chrome.tabs.onUpdated.addListener(tab_updated);
 function tab_updated(tabId, changeInfo, tab) {
-    chrome.extension.getBackgroundPage().console.log("called5");
     if(pluginIsActive(tab)) {
         activate(tab);
     } else {
