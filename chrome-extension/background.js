@@ -3,7 +3,7 @@ var tabs = [];
 
 chrome.tabs.onUpdated.addListener(tab_updated);
 function tab_updated(tabId, changeInfo, tab) {
-    if(pluginIsActive(tab)) {
+    if(changeInfo.status === "complete" && pluginIsActive(tab)) {
         activate(tab);
     } else {
         deactivate(tab);
@@ -35,7 +35,7 @@ var activate = function(tab) {
     req.open("GET", "http://localhost:5555/poll", true);
     req.onload = function(){
         if(pluginIsActive(tab)) {
-            chrome.tabs.reload(tab.id, {bypassCache: true});
+            reload(tab)
             activate(tab);
         }
     };
@@ -50,4 +50,9 @@ var activate = function(tab) {
 var deactivate = function(tab) {
     tabs[tab.id] = false;
     chrome.browserAction.setIcon({path:"icons/iconOff.png", tabId:tab.id});
+    chrome.browserAction.setTitle({title: "deactivated", tabId: tab.id});
+}
+
+var reload = function(tab) {
+    chrome.tabs.reload(tab.id, {bypassCache: true});
 }

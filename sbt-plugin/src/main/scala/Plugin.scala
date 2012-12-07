@@ -9,7 +9,7 @@ object SbtBrowserReloadPlugin extends Plugin
   class Watcher {
     val queue = new java.util.concurrent.LinkedBlockingQueue[String](1)
     def blockUntilChange() { queue.clear(); queue.take() }
-    def fireChange() { queue.offer("new") }
+    def fireChange() { queue.offer("new"); queue.offer("new") }
   }
 
   lazy val watcher: Watcher = {
