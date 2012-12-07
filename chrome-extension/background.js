@@ -33,8 +33,6 @@ var activate = function(tab) {
     var req = new XMLHttpRequest();
     req.open("GET", "http://localhost:5555/poll", true);
     req.onload = function(){
-        chrome.extension.getBackgroundPage().console.log("called3");
-
         if(pluginIsActive(tab)) {
             chrome.tabs.reload(tab.id, {bypassCache: true});
             activate(tab);
