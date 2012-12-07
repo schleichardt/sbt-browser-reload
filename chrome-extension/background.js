@@ -28,6 +28,8 @@ var pluginIsActive = function(tab) {
 var activate = function(tab) {
     tabs[tab.id] = true;
     chrome.browserAction.setIcon({path:"icons/iconOn.png", tabId:tab.id});
+    chrome.browserAction.setBadgeText({text: "", tabId: tab.id});
+    chrome.browserAction.setTitle({title: "Activated: on source code change this page will reload.", tabId: tab.id});
 
 
     var req = new XMLHttpRequest();
@@ -38,7 +40,12 @@ var activate = function(tab) {
             activate(tab);
         }
     };
-    req.send(null);
+    req.onerror = function() {
+        chrome.browserAction.setBadgeText({text: "err", tabId: tab.id});
+        chrome.browserAction.setTitle({title: "Can't connect to SBT application. Have you started it with 'sbt ~run'?", tabId: tab.id});
+        deactivate(tab);
+    }
+    req.send();
 }
 
 var deactivate = function(tab) {
