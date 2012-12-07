@@ -12,8 +12,8 @@
         "default_icon": "icons/iconOff.png"
     },
     "permissions": [
-        "http://*/*",
-        "https://*/*",
+        "http://localhost/*",
+        "https://localhost/*",
         "tabs"
     ]
 }
