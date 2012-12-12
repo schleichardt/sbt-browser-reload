@@ -3,10 +3,12 @@ var tabs = [];
 
 chrome.tabs.onUpdated.addListener(tab_updated);
 function tab_updated(tabId, changeInfo, tab) {
-    if(changeInfo.status === "complete" && pluginIsActive(tab)) {
-        activate(tab);
-    } else {
-        deactivate(tab);
+    if(changeInfo.status === "complete") {
+        if(changeInfo.status === "complete" && pluginIsActive(tab)) {
+            activate(tab);
+        } else {
+            deactivate(tab);
+        }
     }
 };
 
